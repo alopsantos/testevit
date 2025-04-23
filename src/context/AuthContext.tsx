@@ -1,5 +1,6 @@
-import { createContext, useEffect, useState, ReactNode } from "react";
-import { clearToken, getToken, saveToken } from "./auth-store";
+import { clearToken, getToken, saveToken } from "@/hooks/auth-store";
+
+import { createContext, useState, ReactNode, useEffect } from "react";
 
 export type AuthContextType = {
   token: string | null;
@@ -10,7 +11,6 @@ export type AuthContextType = {
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
 

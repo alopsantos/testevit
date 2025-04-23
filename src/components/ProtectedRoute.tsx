@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+import { getToken } from "@/hooks/auth-store";
 import { Navigate } from "react-router";
 
 export default function ProtectedRoute({
@@ -6,8 +6,11 @@ export default function ProtectedRoute({
 }: {
   children: JSX.Element;
 }) {
-  const token = Cookies.get("token");
-  const isAuthenticated = !!token;
+  const token = getToken();
 
-  return isAuthenticated ? children : <Navigate to="/" />;
+  if (!token) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
 }

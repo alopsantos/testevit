@@ -8,13 +8,13 @@ import {
   TooltipTrigger
 } from "../ui/tooltip";
 import { Button } from "../ui/button";
-import { useAuth } from "@/hooks/auth";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function DashboardLayout() {
-  const { signOut } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
   const handleSignOut = () => {
-    signOut();
+    logout();
     navigate("/");
   };
   return (

@@ -1,17 +1,20 @@
 import { useFormState } from "@/hooks/use-form-state";
-import { signInWithEmailAndPassword } from "./loginActions";
 import { useNavigate } from "react-router";
 import { Button } from "../ui/button";
+import { signInWithEmailAndPassword } from "./loginActions";
+import { Spinner } from "@phosphor-icons/react/dist/ssr";
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const [{ errors }, handleSubmit] = useFormState(
+  const [{ errors }, handleSubmit, isPending] = useFormState(
     signInWithEmailAndPassword,
     () => {
       navigate("/dashboard");
     }
   );
-  console.log(errors);
+  if (errors) {
+    console.log(errors);
+  }
   return (
     <div>
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
@@ -35,7 +38,12 @@ export default function LoginForm() {
           />
         </div>
         <div>
-          <Button className="w-full mt-6 flex gap-4" type="submit">
+          <Button className="w-full mt-6 flex gap-4 " type="submit">
+            <Spinner
+              data-pendente={isPending}
+              size={32}
+              className="hidden data-[pendente=true]:flex data-[pendente=true]:animate-spin"
+            />
             Entrar
           </Button>
         </div>

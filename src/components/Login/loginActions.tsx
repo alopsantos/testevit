@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { HTTPError } from "ky";
 import { signInWithPassword } from "@/http/sign-in-with-password";
-import Cookies from "js-cookie";
+import { saveToken } from "@/hooks/auth-store";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Informe um email válido!" }),
@@ -17,15 +17,11 @@ export async function signInWithEmailAndPassword(data: FormData) {
   const { email, password } = result.data;
 
   try {
-    const { token } = await signInWithPassword({
+    const token = await signInWithPassword({
       email,
       password
     });
-    Cookies.set("token", token, {
-      expires: 7,
-      secure: false,
-      sameSite: "strict"
-    });
+    saveToken(token);
   } catch (err) {
     if (err instanceof HTTPError) {
       const { message } = await err.response.json();
@@ -38,6 +34,5 @@ export async function signInWithEmailAndPassword(data: FormData) {
       errors: null
     };
   }
-
   return { success: true, message: null, errors: null };
 }

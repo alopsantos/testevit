@@ -1,4 +1,4 @@
-import LoginForm from "@/components/login/loginForm";
+import LoginForm from "@/components/Login/loginForm";
 import {
   Card,
   CardContent,
@@ -25,7 +25,7 @@ export default function Login() {
           </Card>
           <p className="text-sm text-muted-foreground mt-3 text-center">
             Não posui cadastro?
-            <Link className="text-gray-800 hover:underline" to={"/register"}>
+            <Link className="text-gray-800 hover:underline" to={"/dasboard"}>
               &nbsp; Registre-se
             </Link>
             .
